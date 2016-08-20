@@ -1,0 +1,12 @@
+body {
+    padding-top: 50px;
+}
+.starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.vertical-center {
+    vertical-align: center;
+    padding-top: 10px;
+}
