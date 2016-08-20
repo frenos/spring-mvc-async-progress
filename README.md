@@ -1,7 +1,8 @@
 # spring-mvc-async-progress
 ---
 A sample project to show long running jobs asynchronous in the background with spring-mvc while also having a progress overview.
-![Screenshot](screenshoturl)
+
+![Screenshot](https://github.com/frenos/spring-mvc-async-progress/raw/master/screenshot.png)
 
 This project uses:
 * spring-boot
