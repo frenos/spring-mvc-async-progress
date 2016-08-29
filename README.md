@@ -11,7 +11,8 @@ This project uses:
 * Bootstrap
 
 ---
-**Consider**: The status update is currently done by constantly polling the server and the response is very basic by sending 
-everything on each request.
+**Tag 1.0**: Only contains the example with polling.
+**Tag 2.0**: If you access localhost:8080 you get the "old" polling version. If you access localhost:8080/index_websockets.html you can use the Websockets version.
+
 
 **Disclaimer**: Please only use this as a starting point for your own research, don't just copy/paste :).
