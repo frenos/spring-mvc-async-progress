@@ -2,6 +2,9 @@ package de.codepotion.examples.asyncExample;
 
 import de.codepotion.examples.asyncExample.jobs.ExampleJob;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,12 +19,14 @@ import java.util.ArrayList;
 @Controller
 public class WebController {
 
-
-    private final asyncService myService;
     private static int jobNumber;
-
+    private final asyncService myService;
+    @Qualifier("taskExecutor")
     @Autowired
     private ThreadPoolTaskExecutor myExecutor;
+
+    @Autowired
+    private SimpMessagingTemplate template;
 
     private ArrayList<ExampleJob> myJobList = new ArrayList<>(5);
 
@@ -36,7 +41,7 @@ public class WebController {
         for (int i = 0; i < 3; i++) {
             System.out.println(this + "START startWork");
 
-            ExampleJob newJob = new ExampleJob("Job-" + jobNumber);
+            ExampleJob newJob = new ExampleJob("Job-" + jobNumber, template);
             jobNumber = jobNumber + 1;
             myJobList.add(newJob);
             myService.doWork(newJob);
@@ -46,6 +51,7 @@ public class WebController {
 
     @RequestMapping(value = "/status")
     @ResponseBody
+    @SubscribeMapping("initial")
     ArrayList<ExampleJob> fetchStatus() {
         return this.myJobList;
     }
@@ -55,4 +61,6 @@ public class WebController {
     public void setNewPoolsize(@PathVariable("newSize") int id) {
         myExecutor.setCorePoolSize(id);
     }
+
+
 }

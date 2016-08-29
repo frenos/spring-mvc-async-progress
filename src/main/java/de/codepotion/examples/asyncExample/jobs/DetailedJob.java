@@ -6,7 +6,7 @@ package de.codepotion.examples.asyncExample.jobs;
 interface DetailedJob extends Runnable {
     int getProgress();
 
-    String getStatus();
+    String getState();
 
     String getJobName();
 }

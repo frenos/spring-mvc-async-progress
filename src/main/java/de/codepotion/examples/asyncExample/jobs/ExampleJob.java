@@ -1,5 +1,8 @@
 package de.codepotion.examples.asyncExample.jobs;
 
+import de.codepotion.examples.asyncExample.Messages.JobprogressMessage;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -8,15 +11,20 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class ExampleJob implements DetailedJob {
 
+    private SimpMessagingTemplate template;
+
+
     private int loops = 20;
     private AtomicInteger progress = new AtomicInteger();
-    private String status = "NEW";
+    private String state = "NEW";
     private Random myRandom = new Random();
 
     private String jobName = "";
 
-    public ExampleJob(String jobName) {
+    public ExampleJob(String jobName, SimpMessagingTemplate template) {
         this.jobName = jobName;
+        this.template = template;
+        sendProgress();
     }
 
 
@@ -26,17 +34,29 @@ public class ExampleJob implements DetailedJob {
 
     @Override
     public void run() {
-        status = "RUNNING";
+        state = "RUNNING";
+        sendProgress();
         for (double i = 0.0; i <= loops; i++) {
             try {
                 Thread.sleep(1000);
                 Thread.sleep(myRandom.nextInt(5000));
                 progress.set((int) ((i / loops) * 100));
+                sendProgress();
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        status = "DONE";
+        state = "DONE";
+        sendProgress();
+    }
+
+    public void sendProgress() {
+        JobprogressMessage temp = new JobprogressMessage(jobName);
+        temp.setProgress(progress.get());
+        temp.setState(state);
+
+        template.convertAndSend("/topic/status", temp);
     }
 
     @Override
@@ -44,8 +64,8 @@ public class ExampleJob implements DetailedJob {
         return progress.get();
     }
 
-    public String getStatus() {
-        return status;
+    public String getState() {
+        return state;
     }
 
     public String getJobName() {
