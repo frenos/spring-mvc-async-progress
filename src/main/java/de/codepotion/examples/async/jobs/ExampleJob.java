@@ -1,6 +1,6 @@
-package de.codepotion.examples.asyncExample.jobs;
+package de.codepotion.examples.async.jobs;
 
-import de.codepotion.examples.asyncExample.Messages.JobprogressMessage;
+import de.codepotion.examples.async.messages.JobProgressMessage;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import java.util.Random;
@@ -51,8 +51,8 @@ public class ExampleJob implements DetailedJob {
         sendProgress();
     }
 
-    public void sendProgress() {
-        JobprogressMessage temp = new JobprogressMessage(jobName);
+    private void sendProgress() {
+        JobProgressMessage temp = new JobProgressMessage(jobName);
         temp.setProgress(progress.get());
         temp.setState(state);
 

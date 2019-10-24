@@ -1,14 +1,14 @@
-package de.codepotion.examples.asyncExample.Messages;
+package de.codepotion.examples.async.messages;
 
 /**
  * Created by Frenos on 23.08.2016.
  */
-public class JobprogressMessage {
+public class JobProgressMessage {
     private String jobName;
     private String state;
     private int progress;
 
-    public JobprogressMessage(String jobName)
+    public JobProgressMessage(String jobName)
     {
         this.jobName = jobName;
     }

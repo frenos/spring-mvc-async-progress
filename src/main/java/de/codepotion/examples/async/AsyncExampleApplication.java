@@ -1,4 +1,4 @@
-package de.codepotion.examples.asyncExample;
+package de.codepotion.examples.async;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

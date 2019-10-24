@@ -1,6 +1,6 @@
-package de.codepotion.examples.asyncExample;
+package de.codepotion.examples.async;
 
-import de.codepotion.examples.asyncExample.jobs.ExampleJob;
+import de.codepotion.examples.async.jobs.ExampleJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class WebController {
 
     private static int jobNumber;
-    private final asyncService myService;
+    private final AsyncService myService;
     @Qualifier("taskExecutor")
     @Autowired
     private ThreadPoolTaskExecutor myExecutor;
@@ -28,10 +29,10 @@ public class WebController {
     @Autowired
     private SimpMessagingTemplate template;
 
-    private ArrayList<ExampleJob> myJobList = new ArrayList<>(5);
+    private List<ExampleJob> myJobList = new ArrayList<>(5);
 
     @Autowired
-    WebController(asyncService myService) {
+    WebController(AsyncService myService) {
         this.myService = myService;
     }
 
@@ -52,7 +53,7 @@ public class WebController {
     @RequestMapping(value = "/status")
     @ResponseBody
     @SubscribeMapping("initial")
-    ArrayList<ExampleJob> fetchStatus() {
+    List<ExampleJob> fetchStatus() {
         return this.myJobList;
     }
 
