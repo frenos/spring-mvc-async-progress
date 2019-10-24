@@ -9,6 +9,11 @@
 .idea/dictionaries
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
+.idea/compiler.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/spring-mvc-async-progress.iml
+.idea/encodings.xml
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids
