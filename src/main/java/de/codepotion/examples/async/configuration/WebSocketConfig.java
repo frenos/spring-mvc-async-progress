@@ -1,4 +1,4 @@
-package de.codepotion.examples.asyncExample.Configuration;
+package de.codepotion.examples.async.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

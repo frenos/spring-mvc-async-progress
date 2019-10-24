@@ -1,4 +1,4 @@
-package de.codepotion.examples.asyncExample.jobs;
+package de.codepotion.examples.async.jobs;
 
 /**
  * Created by Frenos on 18.08.2016.
